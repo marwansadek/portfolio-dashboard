@@ -2,234 +2,290 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marwan Sadek - Investment Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            --bg-card: rgba(30, 41, 59, 0.7);
-            --bg-input: rgba(51, 65, 85, 0.5);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --text-primary: white;
+            --bg-primary: #050810;
+            --bg-secondary: #0a0f1e;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --bg-glass: rgba(30, 41, 59, 0.4);
+            --border-glow: rgba(59, 130, 246, 0.3);
+            --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-tertiary: #64748b;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --positive-green: #10b981;
+            --negative-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-purple: #a855f7;
+            --glow-blue: rgba(59, 130, 246, 0.5);
+            --glow-green: rgba(16, 185, 129, 0.5);
+            --glow-gold: rgba(245, 158, 11, 0.5);
         }
         
         [data-theme="light"] {
-            --bg-primary: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --bg-input: rgba(241, 245, 249, 0.8);
-            --border-color: rgba(0, 0, 0, 0.1);
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --bg-glass: rgba(241, 245, 249, 0.6);
+            --border-glow: rgba(59, 130, 246, 0.2);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-tertiary: #64748b;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-primary);
-            background-attachment: fixed;
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 10px;
-            transition: all 0.3s ease;
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
         }
         
-        .container { max-width: 1400px; margin: 0 auto; }
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 25px;
+            position: relative;
+            overflow-x: hidden;
+        }
         
-        .glass {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            animation: backgroundPulse 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .container { 
+            max-width: 1700px; 
+            margin: 0 auto; 
+            position: relative;
+            z-index: 1;
         }
         
         .header {
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 40px 50px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-glow);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 25px;
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            to { left: 100%; }
         }
         
         .header-left h1 {
-            font-size: clamp(20px, 5vw, 34px);
-            margin-bottom: 5px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            font-size: clamp(32px, 6vw, 52px);
+            margin-bottom: 12px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #06b6d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+            text-shadow: 0 0 80px rgba(96, 165, 250, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4)); }
+            50% { filter: drop-shadow(0 0 40px rgba(96, 165, 250, 0.6)); }
         }
         
         .header-left .date-time {
             color: var(--text-secondary);
-            font-size: clamp(11px, 2.5vw, 14px);
+            font-size: 16px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 25px;
             flex-wrap: wrap;
+            font-family: 'Space Mono', monospace;
         }
         
         .live-clock {
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            color: #60a5fa;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            color: #3b82f6;
+            font-size: 17px;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         
         .market-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .market-status.open { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-        .market-status.closed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        
-        .market-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        .market-status.open .market-dot { background: #10b981; }
-        .market-status.closed .market-dot { background: #ef4444; }
-        
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        
-        .header-right { 
-            display: flex; 
-            gap: 8px; 
-            align-items: center;
-        }
-        
-        .icon-button {
-            padding: 10px;
-            background: rgba(99, 102, 241, 0.2);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 10px;
-            color: #a5b4fc;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 40px;
-            min-height: 40px;
-        }
-        
-        .icon-button:hover {
-            background: rgba(99, 102, 241, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .icon-button.active {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-        }
-        
-        .icon-button svg {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .blurred .sensitive { filter: blur(8px); user-select: none; }
-        
-        /* Market Indices Window */
-        .market-indices {
-            padding: 18px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .indices-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        
-        .indices-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
-        }
-        
-        .index-item {
-            padding: 14px;
-            background: var(--bg-input);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-        }
-        
-        .index-item:hover {
-            transform: translateY(-2px);
-            border-color: rgba(96, 165, 250, 0.3);
-        }
-        
-        .index-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-        
-        .index-value {
-            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .index-value.gold { color: #F59E0B; }
-        .index-value.egypt-gold { color: #FB923C; }
-        .index-value.egx { color: #3B82F6; }
-        
-        .index-change {
-            font-size: 12px;
-            font-weight: 600;
+        .market-status.open { 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.2)); 
+            color: var(--positive-green);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
         }
         
-        .index-change.positive { color: #10b981; }
-        .index-change.negative { color: #ef4444; }
-        .index-change.neutral { color: var(--text-secondary); }
-        
-        .index-source {
-            font-size: 10px;
-            color: var(--text-tertiary);
-            margin-top: 4px;
-            font-style: italic;
+        .market-status.closed { 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(248, 113, 113, 0.2)); 
+            color: var(--negative-red);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
         }
+        
+        .market-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px currentColor;
+        }
+        
+        .market-status.open .market-dot { background: var(--positive-green); }
+        .market-status.closed .market-dot { background: var(--negative-red); }
+        
+        @keyframes pulse { 
+            0%, 100% { opacity: 1; transform: scale(1); } 
+            50% { opacity: 0.6; transform: scale(1.2); } 
+        }
+        
+        .header-right { 
+            display: flex; 
+            gap: 14px; 
+            align-items: center; 
+        }
+        
+        .icon-button {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.3));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .icon-button:hover::before { opacity: 1; }
+        
+        .icon-button:hover {
+            transform: translateY(-4px) scale(1.05);
+            color: #60a5fa;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .icon-button.active { 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(248, 113, 113, 0.2)); 
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+        }
+        
+        .blurred .sensitive { filter: blur(12px); user-select: none; }
         
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
         
         .metric-card {
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 35px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            animation-fill-mode: both;
         }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
         
         .metric-card::before {
             content: '';
@@ -238,324 +294,282 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+            background: var(--card-accent);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
         
-        .metric-card:hover {
-            transform: translateY(-3px);
+        .metric-card:hover::before { opacity: 1; }
+        
+        .metric-card:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px var(--card-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: var(--card-accent);
         }
+        
+        .metric-card:nth-child(1) { --card-accent: #3b82f6; --card-glow: rgba(59, 130, 246, 0.3); }
+        .metric-card:nth-child(2) { --card-accent: #10b981; --card-glow: rgba(16, 185, 129, 0.3); }
+        .metric-card:nth-child(3) { --card-accent: #a855f7; --card-glow: rgba(168, 85, 247, 0.3); }
+        .metric-card:nth-child(4) { --card-accent: #06b6d4; --card-glow: rgba(6, 182, 212, 0.3); }
+        
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: var(--icon-bg);
+            box-shadow: 0 4px 20px var(--icon-shadow);
+        }
+        
+        .metric-card:nth-child(1) .metric-icon { --icon-bg: rgba(59, 130, 246, 0.15); --icon-shadow: rgba(59, 130, 246, 0.3); }
+        .metric-card:nth-child(2) .metric-icon { --icon-bg: rgba(16, 185, 129, 0.15); --icon-shadow: rgba(16, 185, 129, 0.3); }
+        .metric-card:nth-child(3) .metric-icon { --icon-bg: rgba(168, 85, 247, 0.15); --icon-shadow: rgba(168, 85, 247, 0.3); }
+        .metric-card:nth-child(4) .metric-icon { --icon-bg: rgba(6, 182, 212, 0.15); --icon-shadow: rgba(6, 182, 212, 0.3); }
+        
+        .metric-icon svg { width: 24px; height: 24px; }
         
         .metric-label {
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .metric-value {
-            font-size: clamp(22px, 4vw, 32px);
-            font-weight: 700;
+            font-size: clamp(32px, 6vw, 46px);
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--card-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .metric-value.positive { color: #10b981; }
-        .metric-value.negative { color: #ef4444; }
+        .metric-change {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .positive { 
+            color: var(--positive-green) !important; 
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .negative { 
+            color: var(--negative-red) !important; 
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
         
         .tabs {
             display: flex;
-            gap: 6px;
-            padding: 6px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            gap: 14px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
-        
-        .tabs::-webkit-scrollbar { display: none; }
-        .tabs { scrollbar-width: none; }
         
         .tab {
-            flex: 1;
-            min-width: 90px;
-            padding: 12px;
+            padding: 16px 32px;
             background: transparent;
             border: none;
+            border-radius: 14px;
             color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 600;
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s;
-            white-space: nowrap;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .tab:hover { background: rgba(51, 65, 85, 0.5); color: var(--text-primary); }
-        .tab.active { background: rgba(37, 99, 235, 0.8); color: white; }
+        .tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
         
-        .content { display: none; }
+        .tab:hover::before { opacity: 1; }
+        .tab:hover { color: var(--text-primary); transform: translateY(-2px); }
+        
+        .tab.active { 
+            background: linear-gradient(135deg, #3b82f6, #a855f7); 
+            color: white;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .content { 
+            display: none; 
+            animation: fadeInContent 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
         .content.active { display: block; }
         
-        .card {
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-        
-        .card h2 {
-            font-size: clamp(17px, 3vw, 22px);
-            margin-bottom: 18px;
-            font-weight: 700;
+        @keyframes fadeInContent { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
         }
         
         .chart-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-            min-height: 300px;
-        }
-        
-        .pie-chart-wrapper {
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-glow);
+            margin-bottom: 30px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
-            width: min(280px, 90vw);
-            height: min(280px, 90vw);
-            margin-bottom: 25px;
+            overflow: hidden;
         }
         
-        #pieChart { cursor: pointer; transition: all 0.3s; }
+        .chart-container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .chart-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            letter-spacing: -0.5px;
+        }
+        
+        .chart-title svg { width: 28px; height: 28px; }
+        
+        #pieChart {
+            max-width: 550px;
+            max-height: 550px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: block;
+            filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.3));
+        }
         
         .pie-legend {
-            width: 100%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 40px;
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: var(--bg-input);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
+            gap: 16px;
+            padding: 20px 22px;
+            border-radius: 16px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
             cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
         }
         
-        .legend-item:hover {
-            background: rgba(51, 65, 85, 0.6);
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            transform: translateX(3px);
+        .legend-item:hover { 
+            transform: translateX(6px) scale(1.02); 
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
         }
         
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            flex-shrink: 0;
-        }
-        
-        .legend-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .legend-name {
-            font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 2px;
-        }
-        
-        .legend-percent {
-            color: var(--text-secondary);
-            font-size: 12px;
-        }
-        
-        .legend-value {
-            font-weight: 700;
-            font-size: 14px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        
-        .table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        th {
-            color: var(--text-secondary);
-            font-weight: 700;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        
-        tr:hover { background: rgba(51, 65, 85, 0.3); }
-        .text-right { text-align: right; }
-        .positive { color: #10b981; font-weight: 600; }
-        .negative { color: #ef4444; font-weight: 600; }
-        
-        .delete-btn {
-            padding: 6px 12px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 6px;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .delete-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.05);
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
-            margin-bottom: 18px;
-        }
-        
-        label {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 14px;
-            font-family: inherit;
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            outline: none;
+        .legend-item.highlighted { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(168, 85, 247, 0.25)); 
             border-color: #3b82f6;
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4);
         }
         
-        textarea { min-height: 80px; resize: vertical; }
-        
-        .button {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .button:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        
-        .button.secondary { 
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        
-        .button.secondary:hover {
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-        
-        .sidebar-layout {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 20px;
-        }
-        
-        .health-card {
-            padding: 22px;
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-        
-        .health-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-        }
-        
-        .health-icon {
-            width: 50px;
-            height: 50px;
+        .legend-icon-wrapper {
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px currentColor;
         }
         
-        .health-icon.low { background: rgba(16, 185, 129, 0.15); }
-        .health-icon.moderate { background: rgba(245, 158, 11, 0.15); }
-        .health-icon.high { background: rgba(239, 68, 68, 0.15); }
+        .legend-icon-wrapper svg { width: 26px; height: 26px; }
         
-        .health-badge {
-            padding: 6px 14px;
-            border-radius: 8px;
+        .legend-text {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .legend-name {
+            font-size: 16px;
             font-weight: 700;
-            font-size: 12px;
+            color: var(--text-primary);
         }
         
-        .health-badge.low { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-        .health-badge.moderate { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-        .health-badge.high { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-        
-        .health-text h3 { 
-            font-size: 18px; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
+        .legend-value { 
+            color: var(--text-secondary);
+            font-weight: 800;
+            font-size: 17px;
+            font-family: 'Space Mono', monospace;
         }
         
-        .health-text p { 
-            color: var(--text-secondary); 
-            font-size: 13px; 
-            line-height: 1.5; 
-        }
-        
-        /* Asset Grid */
-        .asset-grid {
+        .asset-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
         
         .asset-card {
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
             position: relative;
-            transition: all 0.3s;
+            overflow: hidden;
         }
         
         .asset-card::before {
@@ -564,137 +578,265 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            border-radius: 14px 14px 0 0;
+            height: 4px;
+            background: var(--asset-color);
+            box-shadow: 0 0 20px var(--asset-color);
         }
         
-        .asset-card.gold::before { background: linear-gradient(90deg, transparent, #F59E0B, transparent); }
-        .asset-card.green::before { background: linear-gradient(90deg, transparent, #10B981, transparent); }
-        .asset-card.blue::before { background: linear-gradient(90deg, transparent, #3B82F6, transparent); }
-        
-        .asset-card:hover { transform: translateY(-3px); }
-        
-        .asset-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 16px;
+        .asset-card:hover { 
+            transform: translateY(-10px) scale(1.02); 
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 60px var(--asset-glow);
+            border-color: var(--asset-color);
         }
         
-        .asset-info-row {
+        .asset-card.highlighted { 
+            border: 2px solid var(--asset-color); 
+            transform: scale(1.04);
+            box-shadow: 0 15px 50px var(--asset-glow);
+        }
+        
+        .asset-card.islamic { 
+            --asset-color: var(--positive-green); 
+            --asset-glow: var(--glow-green);
+        }
+        
+        .asset-card.gold { 
+            --asset-color: var(--accent-gold); 
+            --asset-glow: var(--glow-gold);
+        }
+        
+        .asset-card.market { 
+            --asset-color: var(--accent-blue); 
+            --asset-glow: var(--glow-blue);
+        }
+        
+        .asset-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 28px;
         }
         
-        .asset-info-row label {
-            font-size: 11px;
+        .asset-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .asset-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px currentColor;
+        }
+        
+        .asset-icon-wrapper svg { width: 30px; height: 30px; }
+        
+        .asset-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        
+        .asset-label {
             color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 700;
             text-transform: uppercase;
-            margin: 0;
+            letter-spacing: 1px;
         }
         
-        .asset-info-row .value {
-            font-size: 15px;
-            font-weight: 700;
+        .asset-value {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
         }
         
         .gain-box {
-            padding: 14px;
-            border-radius: 10px;
-            margin-top: 14px;
+            margin-top: 24px;
+            padding: 22px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
         }
         
-        .gain-box.profit { 
-            background: rgba(16, 185, 129, 0.1); 
-            border: 1px solid rgba(16, 185, 129, 0.2); 
+        .gain-box.loss {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(248, 113, 113, 0.15));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2);
         }
         
-        .gain-box.loss { 
-            background: rgba(239, 68, 68, 0.1); 
-            border: 1px solid rgba(239, 68, 68, 0.2); 
-        }
-        
-        .sell-section {
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .sell-section h4 {
-            font-size: 13px;
-            margin-bottom: 10px;
-            color: var(--text-secondary);
-        }
-        
-        .sell-grid {
+        .controls-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
         
-        .sell-grid input {
-            padding: 8px;
-            font-size: 13px;
+        .control-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
         
-        /* Phase Badge */
-        .phase-badge {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 11px;
+        .control-title {
+            font-size: 18px;
             font-weight: 800;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 1024px) {
-            .sidebar-layout { grid-template-columns: 1fr; }
-            .health-card { position: static; }
+        .form-grid {
+            display: grid;
+            gap: 18px;
         }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        label {
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input, select {
+            padding: 14px 18px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: all 0.4s;
+            font-weight: 600;
+            font-family: 'Space Mono', monospace;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(59, 130, 246, 0.5);
+        }
+        
+        button.danger {
+            background: linear-gradient(135deg, var(--negative-red), #dc2626);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+        }
+        
+        button.danger:hover {
+            box-shadow: 0 12px 36px rgba(239, 68, 68, 0.5);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+        
+        thead { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.15)); 
+        }
+        
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-glow);
+            font-size: 15px;
+        }
+        
+        th {
+            font-weight: 800;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+        }
+        
+        tbody tr { 
+            transition: all 0.3s; 
+            backdrop-filter: blur(20px);
+        }
+        
+        tbody tr:hover { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); 
+            transform: scale(1.01);
+        }
+        
+        .text-right { text-align: right; }
+        
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 8px;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(135deg, #3b82f6, #a855f7); 
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #60a5fa, #c084fc); }
         
         @media (max-width: 768px) {
-            body { padding: 8px; }
-            .header { padding: 16px; }
-            .header-left h1 { font-size: 22px; }
-            .metrics-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .metric-card { padding: 16px; }
-            .indices-grid { grid-template-columns: 1fr 1fr; }
-            .asset-grid { grid-template-columns: 1fr; }
-            .pie-chart-wrapper { width: 240px; height: 240px; }
-            .tab { font-size: 12px; padding: 10px; min-width: 80px; }
-            .card { padding: 16px; }
-            .phase-badge { top: 10px; right: 10px; font-size: 10px; padding: 5px 10px; }
-            .sell-grid { grid-template-columns: 1fr; }
-        }
-        
-        @media (max-width: 480px) {
             .metrics-grid { grid-template-columns: 1fr; }
-            .indices-grid { grid-template-columns: 1fr; }
-            .header-right { width: 100%; justify-content: flex-start; }
-            .form-grid { grid-template-columns: 1fr; }
-            th, td { padding: 10px 8px; font-size: 12px; }
+            .asset-cards { grid-template-columns: 1fr; }
+            .header { padding: 28px; }
+            .chart-container { padding: 28px; }
+            #pieChart { max-width: 100%; }
+            body { padding: 15px; }
         }
         
-        /* Landscape mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .pie-chart-wrapper { width: 200px; height: 200px; }
-            .chart-container { min-height: 240px; }
+        @media (min-width: 1400px) {
+            .metrics-grid { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
 <body>
-    <div class="phase-badge">PHASE 3 PRO</div>
-    
     <div class="container" id="mainContainer">
-        <div class="header glass">
+        <div class="header">
             <div class="header-left">
                 <h1>Marwan Sadek</h1>
                 <div class="date-time">
@@ -702,275 +844,830 @@
                     <span class="live-clock" id="liveClock"></span>
                     <div class="market-status" id="marketStatus">
                         <div class="market-dot"></div>
-                        <span id="marketText">CLOSED</span>
+                        <span id="marketText">Market Open</span>
                     </div>
                 </div>
             </div>
             <div class="header-right">
                 <button class="icon-button" onclick="toggleTheme()" title="Toggle Theme">
-                    <svg id="themeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-width="2"></path>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                     </svg>
                 </button>
-                <button class="icon-button" onclick="exportMenu()" title="Export">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2"></path>
+                <button class="icon-button" onclick="saveData()" title="Save Data">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
                     </svg>
                 </button>
-                <button class="icon-button" id="privacyBtn" onclick="togglePrivacy()" title="Privacy">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-width="2"></path>
-                        <circle cx="12" cy="12" r="3" stroke-width="2"></circle>
+                <button class="icon-button" onclick="exportToCSV()" title="Export Data">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                </button>
+                <button class="icon-button" id="privacyToggle" onclick="togglePrivacy()" title="Toggle Privacy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </button>
             </div>
         </div>
-        
-        <div class="market-indices glass">
-            <div class="indices-title">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-width="2"></polyline>
-                </svg>
-                Market Indices
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">Total Invested</div>
+                </div>
+                <div class="metric-value sensitive" id="totalInvested">E£0</div>
             </div>
-            <div class="indices-grid">
-                <div class="index-item">
-                    <div class="index-label">Global Gold (XAU/USD)</div>
-                    <div class="index-value gold sensitive" id="goldGlobal">Loading...</div>
-                    <div class="index-change neutral" id="goldGlobalChange">--</div>
-                    <div class="index-source">Source: Kitco.com</div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">Current Value</div>
                 </div>
-                <div class="index-item">
-                    <div class="index-label">Egypt Gold (21K)</div>
-                    <div class="index-value egypt-gold sensitive" id="goldEgypt">Loading...</div>
-                    <div class="index-change neutral" id="goldEgyptChange">--</div>
-                    <div class="index-source">Source: EGP Markets</div>
+                <div class="metric-value sensitive" id="currentValue">E£0</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.5">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                            <polyline points="17 6 23 6 23 12"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">Total Gain/Loss</div>
                 </div>
-                <div class="index-item">
-                    <div class="index-label">EGX 30 Index</div>
-                    <div class="index-value egx" id="egx30">Loading...</div>
-                    <div class="index-change neutral" id="egx30Change">--</div>
-                    <div class="index-source">Source: EGX Official</div>
+                <div class="metric-value sensitive" id="totalGain">E£0</div>
+                <div class="metric-change" id="gainPercent">0%</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div class="metric-label">Return %</div>
                 </div>
-                <div class="index-item">
-                    <div class="index-label">EGX 70 Index</div>
-                    <div class="index-value egx" id="egx70">Loading...</div>
-                    <div class="index-change neutral" id="egx70Change">--</div>
-                    <div class="index-source">Source: EGX Official</div>
-                </div>
+                <div class="metric-value" id="returnPercent">0%</div>
             </div>
         </div>
-        
-        <div class="metrics-grid" id="metricsGrid"></div>
-        
-        <div class="tabs glass">
+
+        <div class="tabs">
             <button class="tab active" onclick="switchTab('overview')">Overview</button>
             <button class="tab" onclick="switchTab('assets')">Assets</button>
             <button class="tab" onclick="switchTab('manage')">Manage</button>
             <button class="tab" onclick="switchTab('projections')">Projections</button>
         </div>
-        
+
         <div id="overview" class="content active">
-            <div class="sidebar-layout">
-                <div>
-                    <div class="card glass">
-                        <h2>Asset Performance</h2>
-                        <div class="table-wrapper">
-                            <table id="performanceTable"></table>
-                        </div>
-                    </div>
-                    
-                    <div class="card glass">
-                        <h2>Portfolio Allocation</h2>
-                        <div class="chart-container">
-                            <div class="pie-chart-wrapper">
-                                <canvas id="pieChart"></canvas>
-                            </div>
-                            <div class="pie-legend" id="pieLegend"></div>
-                        </div>
-                    </div>
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                        <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                    </svg>
+                    Portfolio Allocation
+                </div>
+                <canvas id="pieChart" width="550" height="550"></canvas>
+                <div class="pie-legend" id="pieLegend"></div>
+            </div>
+        </div>
+
+        <div id="assets" class="content">
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    </svg>
+                    Update Market Prices
+                </div>
+                <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));" id="priceControls"></div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    Asset Details
+                </div>
+                <div class="asset-cards" id="assetCards"></div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    Performance Analysis
+                </div>
+                <table id="performanceTable"></table>
+            </div>
+        </div>
+
+        <div id="manage" class="content">
+            <div class="controls-section">
+                <div class="control-card">
+                    <div class="control-title">Update Asset Quantities</div>
+                    <div class="form-grid" id="quantityControls"></div>
                 </div>
                 
-                <div>
-                    <div class="health-card glass" id="healthCard"></div>
+                <div class="control-card">
+                    <div class="control-title">Update Invested Amounts</div>
+                    <div class="form-grid" id="investedControls"></div>
+                </div>
+                
+                <div class="control-card">
+                    <div class="control-title">Add New Asset</div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Asset Name</label>
+                            <input type="text" id="newAssetName" placeholder="e.g., New Fund">
+                        </div>
+                        <div class="form-group">
+                            <label>Asset Type</label>
+                            <select id="newAssetType">
+                                <option value="islamic">Islamic Fund</option>
+                                <option value="gold">Gold</option>
+                                <option value="market">Market Index</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" id="newAssetQuantity" step="0.01" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Price (EGP)</label>
+                            <input type="number" id="newAssetPrice" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount Invested (EGP)</label>
+                            <input type="number" id="newAssetInvested" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <button onclick="addNewAsset()">Add Asset</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="assets" class="content">
-            <div class="card glass">
-                <h2>Update Market Prices</h2>
-                <div class="form-grid" id="priceInputs"></div>
-                <button class="button secondary" onclick="savePrices()">Save Prices</button>
-            </div>
             
-            <div class="card glass">
-                <h2>Asset Details</h2>
-                <div class="asset-grid" id="assetCards"></div>
-            </div>
-        </div>
-        
-        <div id="manage" class="content">
-            <div class="card glass">
-                <h2>Add Transaction</h2>
-                <div class="form-grid">
-                    <div><label>Date</label><input type="date" id="newDate"></div>
-                    <div><label>Asset</label><input type="text" id="newAsset" placeholder="e.g., Aman fund"></div>
-                    <div><label>Type</label>
-                        <select id="newType">
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="16"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                    Add Transaction
+                </div>
+                <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="transDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select id="transAsset"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="transType">
+                            <option value="subscription">Subscription</option>
                             <option value="purchase">Purchase</option>
-                            <option value="dividend">Dividend</option>
-                            <option value="sale">Sale</option>
+                            <option value="sell">Sell</option>
                         </select>
                     </div>
-                    <div><label>Quantity</label><input type="number" id="newQuantity" step="0.01"></div>
-                    <div><label>Price</label><input type="number" id="newPrice" step="0.01"></div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="transQuantity" step="0.01" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Price per Unit</label>
+                        <input type="number" id="transPrice" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group" style="align-self: end;">
+                        <button onclick="addTransaction()">Add Transaction</button>
+                    </div>
                 </div>
-                <div><label>Notes</label><textarea id="newNotes" placeholder="Optional notes..."></textarea></div>
-                <button class="button secondary" onclick="addTransaction()">Add Transaction</button>
             </div>
             
-            <div class="card glass">
-                <h2>Transaction History</h2>
-                <button class="button" onclick="exportData('history')">Export CSV</button>
-                <div class="table-wrapper">
-                    <table id="historyTable"></table>
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    Transaction History
                 </div>
+                <table id="transactionTable"></table>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    Manage Assets
+                </div>
+                <div id="manageAssets"></div>
             </div>
         </div>
-        
+
         <div id="projections" class="content">
-            <div class="card glass">
-                <h2>Projection Settings</h2>
-                <div class="form-grid">
-                    <div><label>Expected Return (%)</label><input type="number" id="expectedReturn" value="8" step="0.5" onchange="updateProjections()"></div>
-                    <div><label>Years</label><input type="number" id="projectionYears" value="25" step="5" onchange="updateProjections()"></div>
-                    <div><label>Monthly Contribution</label><input type="number" id="monthlyContribution" value="0" step="100" onchange="updateProjections()"></div>
+            <div class="chart-container">
+                <div class="chart-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    Future Value Projections
                 </div>
-            </div>
-            
-            <div class="card glass">
-                <h2>Future Value Projections</h2>
-                <button class="button" onclick="exportData('projections')">Export CSV</button>
-                <div class="table-wrapper">
-                    <table id="projectionsTable"></table>
+                <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 30px;">
+                    <div class="form-group">
+                        <label>Expected Annual Return (%)</label>
+                        <input type="number" id="expectedReturn" value="13.89" step="0.1" onchange="updateProjections()">
+                    </div>
+                    <div class="form-group">
+                        <label>Projection Period (Years)</label>
+                        <input type="number" id="projectionYears" value="20" min="5" max="30" onchange="updateProjections()">
+                    </div>
                 </div>
+                <table id="projectionsTable"></table>
             </div>
         </div>
     </div>
-    
+
     <script>
-        const STORAGE_KEY='marwan_portfolio_data',THEME_KEY='marwan_theme';
-        const COLORS={'AZG':'#F59E0B','CMS':'#10B981','Aman fund':'#3B82F6'};
-        let pendingPrices={};
-        
-        // Gold price APIs (Kitco is most reliable for XAU/USD)
-        const GOLD_API_KITCO = 'https://www.kitco.com/market/';
-        // Note: For production, you'd need proper API keys. Using realistic mock data for now.
-        
-        function loadData(){const saved=localStorage.getItem(STORAGE_KEY);if(saved){try{const parsed=JSON.parse(saved);if(parsed.marketPrices)return parsed}catch(e){}}return{purchases:[{date:'2025-10-06',asset:'Aman fund',quantity:9,purchase_price:353.29,type:'purchase',notes:''},{date:'2025-11-03',asset:'Aman fund',quantity:11,purchase_price:367.99,type:'purchase',notes:''},{date:'2025-11-04',asset:'CMS',quantity:210,purchase_price:14.18,type:'purchase',notes:''},{date:'2025-11-06',asset:'AZG',quantity:95,purchase_price:20.88,type:'purchase',notes:''},{date:'2025-11-21',asset:'Aman fund',quantity:12,purchase_price:378.09,type:'purchase',notes:''},{date:'2025-12-02',asset:'Aman fund',quantity:12,purchase_price:393.69,type:'purchase',notes:''},{date:'2025-12-02',asset:'AZG',quantity:137,purchase_price:21.948,type:'purchase',notes:''},{date:'2025-12-02',asset:'CMS',quantity:134,purchase_price:14.837,type:'purchase',notes:''},{date:'2026-01-05',asset:'Aman fund',quantity:11,purchase_price:400.31,type:'purchase',notes:''},{date:'2026-01-05',asset:'CMS',quantity:191,purchase_price:15.69,type:'purchase',notes:''},{date:'2026-01-05',asset:'AZG',quantity:136,purchase_price:22.49,type:'purchase',notes:''}],marketPrices:{'Aman fund':430.51,'AZG':26.17192,'CMS':17.11725}}}
-        
-        function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({purchases,marketPrices}))}catch(e){alert('Save failed')}}
-        const data=loadData();let purchases=[...data.purchases],marketPrices={...data.marketPrices};
-        
-        function updateDateTime(){document.getElementById('currentDate').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});const now=new Date();document.getElementById('liveClock').textContent=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');const day=now.getDay(),time=now.getHours()*60+now.getMinutes();if(day>=0&&day<=4&&time>=600&&time<870){document.getElementById('marketStatus').className='market-status open';document.getElementById('marketText').textContent='OPEN'}else{document.getElementById('marketStatus').className='market-status closed';document.getElementById('marketText').textContent='CLOSED'}}
-        setInterval(updateDateTime,1000);updateDateTime();
-        
-        function toggleTheme(){const current=document.documentElement.getAttribute('data-theme'),newTheme=current==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',newTheme);localStorage.setItem(THEME_KEY,newTheme);const icon=document.getElementById('themeIcon');if(newTheme==='light'){icon.innerHTML='<circle cx="12" cy="12" r="5" stroke-width="2"></circle><line x1="12" y1="1" x2="12" y2="3" stroke-width="2"></line><line x1="12" y1="21" x2="12" y2="23" stroke-width="2"></line>'}else{icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-width="2"></path>'}}
-        const savedTheme=localStorage.getItem(THEME_KEY)||'dark';document.documentElement.setAttribute('data-theme',savedTheme);if(savedTheme==='light'){document.getElementById('themeIcon').innerHTML='<circle cx="12" cy="12" r="5" stroke-width="2"></circle><line x1="12" y1="1" x2="12" y2="3" stroke-width="2"></line><line x1="12" y1="21" x2="12" y2="23" stroke-width="2"></line>'}
-        
-        function togglePrivacy(){document.getElementById('mainContainer').classList.toggle('blurred');document.getElementById('privacyBtn').classList.toggle('active')}
-        
-        // Updated gold price function with realistic market data
-        // Note: Real API requires keys. Using realistic fluctuations based on actual market data
-        async function updateMarketData(){
-            // Base prices from real market data (Feb 2024)
-            const baseGoldUSD = 2678.50; // Kitco spot price
-            const baseGoldEGP = 3850;    // 21K Egypt market
-            const baseEGX30 = 30250.5;   // EGX official
-            const baseEGX70 = 3425.8;    // EGX official
-            
-            // Realistic small fluctuations
-            const goldUSD = baseGoldUSD + (Math.random() - 0.5) * 15;
-            const goldEGP = baseGoldEGP + (Math.random() - 0.5) * 40;
-            const egx30 = baseEGX30 + (Math.random() - 0.5) * 150;
-            const egx70 = baseEGX70 + (Math.random() - 0.5) * 25;
-            
-            // Calculate changes
-            const goldUSDChange = ((goldUSD - baseGoldUSD) / baseGoldUSD * 100).toFixed(2);
-            const goldEGPChange = ((goldEGP - baseGoldEGP) / baseGoldEGP * 100).toFixed(2);
-            const egx30Change = ((egx30 - baseEGX30) / baseEGX30 * 100).toFixed(2);
-            const egx70Change = ((egx70 - baseEGX70) / baseEGX70 * 100).toFixed(2);
-            
-            document.getElementById('goldGlobal').textContent='$'+goldUSD.toFixed(2)+'/oz';
-            document.getElementById('goldGlobalChange').innerHTML=formatChange(goldUSDChange,'24h');
-            document.getElementById('goldGlobalChange').className='index-change '+(goldUSDChange>=0?'positive':'negative');
-            
-            document.getElementById('goldEgypt').textContent='E£'+goldEGP.toFixed(0)+'/g';
-            document.getElementById('goldEgyptChange').innerHTML=formatChange(goldEGPChange,'today');
-            document.getElementById('goldEgyptChange').className='index-change '+(goldEGPChange>=0?'positive':'negative');
-            
-            document.getElementById('egx30').textContent=egx30.toFixed(2);
-            document.getElementById('egx30Change').innerHTML=formatChange(egx30Change,'today');
-            document.getElementById('egx30Change').className='index-change '+(egx30Change>=0?'positive':'negative');
-            
-            document.getElementById('egx70').textContent=egx70.toFixed(2);
-            document.getElementById('egx70Change').innerHTML=formatChange(egx70Change,'today');
-            document.getElementById('egx70Change').className='index-change '+(egx70Change>=0?'positive':'negative');
+        // Portfolio Data
+        let assets = {
+            'AMAN fund': { type: 'islamic', quantity: 64, currentPrice: 441.29, invested: 24894.12 },
+            'AZG': { type: 'gold', quantity: 394, currentPrice: 26.37, invested: 7001.92 },
+            'CMS': { type: 'market', quantity: 707, currentPrice: 17.49, invested: 10946.95 }
+        };
+
+        let transactions = [
+            {date: '2025-10-06', asset: 'AMAN fund', type: 'subscription', units: 9, price: 353.29, total: 3179.61},
+            {date: '2025-11-03', asset: 'AMAN fund', type: 'subscription', units: 11, price: 367.99, total: 4047.89},
+            {date: '2025-11-04', asset: 'CMS', type: 'purchase', units: 210, price: 14.2, total: 2982.88},
+            {date: '2025-11-04', asset: 'AZG', type: 'purchase', units: 95, price: 20.92, total: 1987.86},
+            {date: '2025-11-21', asset: 'AMAN fund', type: 'subscription', units: 12, price: 378.09, total: 4537.08},
+            {date: '2025-12-02', asset: 'AMAN fund', type: 'subscription', units: 12, price: 393.69, total: 4724.28},
+            {date: '2025-12-03', asset: 'AZG', type: 'subscription', units: 137, price: 21.948, total: 3007.15},
+            {date: '2025-12-02', asset: 'CMS', type: 'subscription', units: 134, price: 14.837, total: 1988.56},
+            {date: '2026-01-05', asset: 'AMAN fund', type: 'subscription', units: 11, price: 400.31, total: 4403.41},
+            {date: '2026-01-05', asset: 'CMS', type: 'subscription', units: 191, price: 15.69, total: 2996.79}
+        ];
+
+        let selectedAsset = null;
+
+        const colors = {
+            'islamic': '#10b981',
+            'gold': '#f59e0b',
+            'market': '#3b82f6'
+        };
+
+        const assetIcons = {
+            'islamic': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>',
+            'gold': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+            'market': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>'
+        };
+
+        function formatCurrency(num) {
+            return 'E£' + num.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
-        
-        function formatChange(change,period){
-            const sign = change>=0?'+':'';
-            return `<span>${sign}${change}%</span> <span style="font-size:10px">(${period})</span>`;
+
+        function formatPercent(num) {
+            return (num >= 0 ? '+' : '') + num.toFixed(2) + '%';
         }
-        
-        updateMarketData();
-        setInterval(updateMarketData,120000); // Update every 2 minutes
-        
-        function formatCurrency(v){return'E£'+v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",")}
-        function formatPercent(v){return`${v>=0?'+':''}${v.toFixed(2)}%`}
-        
-        function calculateMetrics(){const summary={};let totalInvested=0;purchases.filter(p=>p.type!=='dividend').forEach(p=>{const cost=p.quantity*p.purchase_price;if(p.type==='sale'){totalInvested-=cost}else{totalInvested+=cost}if(!summary[p.asset])summary[p.asset]={totalQuantity:0,totalCost:0};if(p.type==='sale'){summary[p.asset].totalQuantity-=p.quantity;summary[p.asset].totalCost-=cost}else{summary[p.asset].totalQuantity+=p.quantity;summary[p.asset].totalCost+=cost}});let totalCurrentValue=0;const breakdown=[];Object.keys(summary).forEach(asset=>{const d=summary[asset];if(d.totalQuantity<=0)return;const avgPrice=d.totalCost/d.totalQuantity,curPrice=marketPrices[asset]||avgPrice,curValue=d.totalQuantity*curPrice,gain=curValue-d.totalCost,gainPct=(gain/d.totalCost)*100;totalCurrentValue+=curValue;breakdown.push({asset,quantity:d.totalQuantity,avgPrice,currentPrice:curPrice,invested:d.totalCost,currentValue:curValue,gainLoss:gain,gainLossPercent:gainPct})});breakdown.sort((a,b)=>b.currentValue-a.currentValue);return{totalInvested,totalCurrentValue,totalGainLoss:totalCurrentValue-totalInvested,totalGainLossPercent:totalInvested>0?((totalCurrentValue-totalInvested)/totalInvested)*100:0,assetBreakdown:breakdown}}
-        
-        function calculateHealth(m){const num=m.assetBreakdown.length,largest=m.assetBreakdown[0]?(m.assetBreakdown[0].currentValue/m.totalCurrentValue)*100:0;let risk='Low',icon='🛡️',desc='Well-diversified portfolio';if(num<3||largest>60){risk='High';icon='⚠️';desc='High concentration risk'}else if(num<5||largest>40){risk='Moderate';icon='⚖️';desc='Moderate diversification'}return{risk,icon,desc}}
-        
-        function updateHealth(){const m=calculateMetrics(),h=calculateHealth(m);document.getElementById('healthCard').innerHTML=`<div class="health-header"><div class="health-icon ${h.risk.toLowerCase()}">${h.icon}</div><div class="health-badge ${h.risk.toLowerCase()}">${h.risk} Risk</div></div><div class="health-text"><h3>Portfolio Health</h3><p>${h.desc}</p><p style="margin-top:10px;font-size:12px;color:var(--text-secondary)">Assets: ${m.assetBreakdown.length} • Largest: ${((m.assetBreakdown[0]?.currentValue/m.totalCurrentValue)*100||0).toFixed(1)}%</p></div>`}
-        
-        function updateMetrics(){const m=calculateMetrics();const metrics=[{label:'Total Invested',value:formatCurrency(m.totalInvested),class:''},{label:'Current Value',value:formatCurrency(m.totalCurrentValue),class:'positive'},{label:'Total Gain/Loss',value:formatCurrency(m.totalGainLoss),class:m.totalGainLoss>=0?'positive':'negative'},{label:'Return %',value:formatPercent(m.totalGainLossPercent),class:m.totalGainLossPercent>=0?'positive':'negative'}];let html='';metrics.forEach(met=>{html+=`<div class="metric-card glass"><div class="metric-label">${met.label}</div><div class="metric-value ${met.class} sensitive">${met.value}</div></div>`});document.getElementById('metricsGrid').innerHTML=html}
-        
-        function drawPieChart(){const m=calculateMetrics(),ctx=document.getElementById('pieChart').getContext('2d'),centerX=ctx.canvas.width/2,centerY=ctx.canvas.height/2,radius=Math.min(centerX,centerY)-10;ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);let currentAngle=0;m.assetBreakdown.forEach(a=>{const sliceAngle=(a.currentValue/m.totalCurrentValue)*2*Math.PI;ctx.beginPath();ctx.moveTo(centerX,centerY);ctx.arc(centerX,centerY,radius,currentAngle,currentAngle+sliceAngle);ctx.closePath();ctx.fillStyle=COLORS[a.asset];ctx.fill();ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=2;ctx.stroke();currentAngle+=sliceAngle});let html='';m.assetBreakdown.forEach(a=>{const pct=((a.currentValue/m.totalCurrentValue)*100).toFixed(1);html+=`<div class="legend-item"><div class="legend-color" style="background:${COLORS[a.asset]}"></div><div class="legend-info"><div class="legend-name">${a.asset}</div><div class="legend-percent">${pct}%</div><div class="legend-value sensitive">${formatCurrency(a.currentValue)}</div></div></div>`});document.getElementById('pieLegend').innerHTML=html}
-        
-        function updatePerformanceTable(){const m=calculateMetrics();let html='<thead><tr><th>Asset</th><th class="text-right">Qty</th><th class="text-right">Avg</th><th class="text-right">Current</th><th class="text-right">Value</th><th class="text-right">Gain/Loss</th><th class="text-right">Return</th></tr></thead><tbody>';m.assetBreakdown.forEach(a=>{html+=`<tr><td><strong>${a.asset}</strong></td><td class="text-right sensitive">${a.quantity.toFixed(2)}</td><td class="text-right sensitive">${formatCurrency(a.avgPrice)}</td><td class="text-right sensitive">${formatCurrency(a.currentPrice)}</td><td class="text-right sensitive"><strong>${formatCurrency(a.currentValue)}</strong></td><td class="text-right ${a.gainLoss>=0?'positive':'negative'} sensitive">${formatCurrency(a.gainLoss)}</td><td class="text-right ${a.gainLossPercent>=0?'positive':'negative'}">${formatPercent(a.gainLossPercent)}</td></tr>`});document.getElementById('performanceTable').innerHTML=html+'</tbody>'}
-        
-        function updatePriceInputs(){let html='';Object.keys(marketPrices).forEach(asset=>{const val=pendingPrices[asset]||marketPrices[asset];html+=`<div><label style="color:${COLORS[asset]}">${asset}</label><input type="number" step="0.00001" value="${val}" oninput="pendingPrices['${asset}']=parseFloat(this.value)" class="sensitive"></div>`});document.getElementById('priceInputs').innerHTML=html}
-        
-        function savePrices(){if(Object.keys(pendingPrices).length===0){alert('No changes');return}Object.assign(marketPrices,pendingPrices);pendingPrices={};saveData();updateAll();alert('✅ Prices saved!')}
-        
-        function updateAssetCards(){const m=calculateMetrics();let html='';m.assetBreakdown.forEach(a=>{const w=(a.currentValue/m.totalCurrentValue)*100;let cls='gold';if(a.asset==='CMS')cls='green';else if(a.asset==='Aman fund')cls='blue';html+=`<div class="asset-card glass ${cls}"><h3>${a.asset}</h3><div class="asset-info-row"><label>Quantity</label><div class="value sensitive">${a.quantity.toFixed(2)}</div></div><div class="asset-info-row"><label>Weight</label><div class="value" style="color:#a78bfa">${w.toFixed(1)}%</div></div><div class="asset-info-row"><label>Avg Price</label><div class="value sensitive">${formatCurrency(a.avgPrice)}</div></div><div class="asset-info-row"><label>Current</label><div class="value sensitive" style="color:${COLORS[a.asset]}">${formatCurrency(a.currentPrice)}</div></div><div class="asset-info-row"><label>Total Value</label><div class="value sensitive">${formatCurrency(a.currentValue)}</div></div><div class="gain-box ${a.gainLoss>=0?'profit':'loss'}"><div class="asset-info-row"><label>Gain/Loss</label><div class="value ${a.gainLoss>=0?'positive':'negative'} sensitive">${formatCurrency(a.gainLoss)}</div></div><div class="asset-info-row"><label>Return</label><div class="value ${a.gainLossPercent>=0?'positive':'negative'}">${formatPercent(a.gainLossPercent)}</div></div></div><div class="sell-section"><h4>Quick Sell</h4><div class="sell-grid"><input type="number" placeholder="Quantity" id="sellQty-${a.asset}" step="0.01" max="${a.quantity}"><input type="number" placeholder="Price" id="sellPrice-${a.asset}" step="0.01" value="${a.currentPrice.toFixed(2)}"></div><button class="button" style="width:100%;margin:0" onclick="quickSell('${a.asset}')">Sell ${a.asset}</button></div></div>`});document.getElementById('assetCards').innerHTML=html}
-        
-        function quickSell(asset){const qty=parseFloat(document.getElementById(`sellQty-${asset}`).value);const price=parseFloat(document.getElementById(`sellPrice-${asset}`).value);if(!qty||!price||qty<=0){alert('Enter valid quantity and price');return}const m=calculateMetrics();const assetData=m.assetBreakdown.find(a=>a.asset===asset);if(!assetData||qty>assetData.quantity){alert('Cannot sell more than you own');return}if(confirm(`Sell ${qty} ${asset} @ ${formatCurrency(price)}?\nTotal: ${formatCurrency(qty*price)}`)){purchases.push({date:new Date().toISOString().split('T')[0],asset,type:'sale',quantity:qty,purchase_price:price,notes:'Quick sell'});saveData();updateAll();alert('✅ Sale recorded!')}}
-        
-        function updateHistory(){const sorted=[...purchases].sort((a,b)=>new Date(b.date)-new Date(a.date));let html='<thead><tr><th>Date</th><th>Type</th><th>Asset</th><th class="text-right">Qty</th><th class="text-right">Price</th><th class="text-right">Total</th><th>Action</th></tr></thead><tbody>';sorted.forEach((p,idx)=>{html+=`<tr><td>${new Date(p.date).toLocaleDateString()}</td><td>${p.type.charAt(0).toUpperCase()+p.type.slice(1)}</td><td><strong>${p.asset}</strong></td><td class="text-right sensitive">${p.quantity}</td><td class="text-right sensitive">${formatCurrency(p.purchase_price)}</td><td class="text-right sensitive"><strong>${formatCurrency(p.quantity*p.purchase_price)}</strong></td><td><button class="delete-btn" onclick="deleteTransaction(${idx})">Delete</button></td></tr>`});document.getElementById('historyTable').innerHTML=html+'</tbody>'}
-        
-        function deleteTransaction(idx){const sorted=[...purchases].sort((a,b)=>new Date(b.date)-new Date(a.date));const trans=sorted[idx];if(confirm(`Delete transaction?\n${trans.type} ${trans.quantity} ${trans.asset} @ ${formatCurrency(trans.purchase_price)}`)){const origIdx=purchases.findIndex(p=>p.date===trans.date&&p.asset===trans.asset&&p.quantity===trans.quantity&&p.purchase_price===trans.purchase_price);if(origIdx>-1){purchases.splice(origIdx,1);saveData();updateAll();alert('✅ Transaction deleted!')}}}
-        
-        function addTransaction(){const date=document.getElementById('newDate').value,asset=document.getElementById('newAsset').value,type=document.getElementById('newType').value,qty=parseFloat(document.getElementById('newQuantity').value),price=parseFloat(document.getElementById('newPrice').value),notes=document.getElementById('newNotes').value;if(date&&asset&&qty&&price){purchases.push({date,asset,type,quantity:qty,purchase_price:price,notes});if(!marketPrices[asset])marketPrices[asset]=price;document.getElementById('newDate').value='';document.getElementById('newAsset').value='';document.getElementById('newQuantity').value='';document.getElementById('newPrice').value='';document.getElementById('newNotes').value='';saveData();updateAll();alert('✅ Transaction added!')}else{alert('❌ Fill all fields')}}
-        
-        function exportMenu(){const choice=prompt('Export:\n1 - Summary\n2 - History\n3 - Projections\n\nEnter 1-3:');if(choice==='1')exportData('summary');else if(choice==='2')exportData('history');else if(choice==='3')exportData('projections')}
-        
-        function exportData(type){const ts=new Date().toISOString().split('T')[0];let csv='',filename='';if(type==='summary'){const m=calculateMetrics();csv='Metric,Value\n';csv+=`Total Invested,${m.totalInvested.toFixed(2)}\nCurrent Value,${m.totalCurrentValue.toFixed(2)}\n\nAsset,Qty,Avg,Current,Value,Gain,Return\n`;m.assetBreakdown.forEach(a=>{csv+=`${a.asset},${a.quantity.toFixed(2)},${a.avgPrice.toFixed(2)},${a.currentPrice.toFixed(2)},${a.currentValue.toFixed(2)},${a.gainLoss.toFixed(2)},${a.gainLossPercent.toFixed(2)}\n`});filename=`summary_${ts}.csv`}else if(type==='history'){csv='Date,Type,Asset,Qty,Price,Total,Notes\n';purchases.forEach(p=>csv+=`${p.date},${p.type},${p.asset},${p.quantity},${p.purchase_price.toFixed(2)},${(p.quantity*p.purchase_price).toFixed(2)},"${p.notes||''}"\n`);filename=`history_${ts}.csv`}else if(type==='projections'){const m=calculateMetrics(),rate=parseFloat(document.getElementById('expectedReturn').value)/100,years=parseInt(document.getElementById('projectionYears').value),monthly=parseFloat(document.getElementById('monthlyContribution').value)||0;csv='Year,Conservative,Expected,Optimistic\n';for(let y=0;y<=years;y+=5){const c=calcFuture(m.totalCurrentValue,rate*0.6,y,monthly),e=calcFuture(m.totalCurrentValue,rate,y,monthly),o=calcFuture(m.totalCurrentValue,rate*1.4,y,monthly);csv+=`${y},${c.toFixed(2)},${e.toFixed(2)},${o.toFixed(2)}\n`}filename=`projections_${ts}.csv`}const blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url)}
-        
-        function calcFuture(principal,rate,years,monthly){let value=principal;const monthlyRate=rate/12;for(let m=0;m<years*12;m++){value=value*(1+monthlyRate)+monthly}return value}
-        
-        function updateProjections(){const m=calculateMetrics(),rate=parseFloat(document.getElementById('expectedReturn').value)/100,years=parseInt(document.getElementById('projectionYears').value),monthly=parseFloat(document.getElementById('monthlyContribution').value)||0;let html='<thead><tr><th>Year</th><th class="text-right">Conservative</th><th class="text-right">Expected</th><th class="text-right">Optimistic</th></tr></thead><tbody>';for(let y=0;y<=years;y+=5){const cons=calcFuture(m.totalCurrentValue,rate*0.6,y,monthly),exp=calcFuture(m.totalCurrentValue,rate,y,monthly),opt=calcFuture(m.totalCurrentValue,rate*1.4,y,monthly);html+=`<tr><td><strong>${y===0?'Now':y+'Y'}</strong></td><td class="text-right sensitive">${formatCurrency(cons)}</td><td class="text-right sensitive"><strong>${formatCurrency(exp)}</strong></td><td class="text-right sensitive">${formatCurrency(opt)}</td></tr>`}document.getElementById('projectionsTable').innerHTML=html+'</tbody>'}
-        
-        function switchTab(name){document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(name).classList.add('active');event.target.classList.add('active')}
-        
-        function updateAll(){updateHealth();updateMetrics();drawPieChart();updatePerformanceTable();updateProjections();updatePriceInputs();updateAssetCards();updateHistory()}
-        
-        const canvas=document.getElementById('pieChart');canvas.width=300;canvas.height=300;
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('liveClock').textContent = now.toLocaleTimeString();
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            const hour = now.getHours();
+            const day = now.getDay();
+            const isWeekend = day === 0 || day === 6;
+            const isMarketHours = hour >= 9 && hour < 17;
+            const isOpen = !isWeekend && isMarketHours;
+
+            const status = document.getElementById('marketStatus');
+            status.className = 'market-status ' + (isOpen ? 'open' : 'closed');
+            document.getElementById('marketText').textContent = isOpen ? 'Market Open' : 'Market Closed';
+        }
+
+        function calculateMetrics() {
+            let totalInvested = 0;
+            let totalCurrentValue = 0;
+            const assetBreakdown = [];
+
+            Object.keys(assets).forEach(name => {
+                const asset = assets[name];
+                const currentValue = asset.quantity * asset.currentPrice;
+                const gainLoss = currentValue - asset.invested;
+                const gainLossPercent = (gainLoss / asset.invested) * 100;
+
+                totalInvested += asset.invested;
+                totalCurrentValue += currentValue;
+
+                assetBreakdown.push({
+                    name: name,
+                    type: asset.type,
+                    quantity: asset.quantity,
+                    currentPrice: asset.currentPrice,
+                    invested: asset.invested,
+                    currentValue: currentValue,
+                    gainLoss: gainLoss,
+                    gainLossPercent: gainLossPercent
+                });
+            });
+
+            const totalGainLoss = totalCurrentValue - totalInvested;
+            const profitMargin = (totalGainLoss / totalInvested) * 100;
+
+            return {
+                assetBreakdown,
+                totalInvested,
+                totalCurrentValue,
+                totalGainLoss,
+                profitMargin
+            };
+        }
+
+        function updateMetrics() {
+            const m = calculateMetrics();
+            document.getElementById('totalInvested').textContent = formatCurrency(m.totalInvested);
+            document.getElementById('currentValue').textContent = formatCurrency(m.totalCurrentValue);
+            document.getElementById('totalGain').textContent = formatCurrency(m.totalGainLoss);
+            document.getElementById('returnPercent').textContent = formatPercent(m.profitMargin);
+            
+            const gainPercentEl = document.getElementById('gainPercent');
+            gainPercentEl.className = 'metric-change ' + (m.totalGainLoss >= 0 ? 'positive' : 'negative');
+            gainPercentEl.textContent = formatPercent(m.profitMargin);
+            
+            const returnPercentEl = document.getElementById('returnPercent');
+            returnPercentEl.className = 'metric-value ' + (m.profitMargin >= 0 ? 'positive' : 'negative');
+        }
+
+        function drawPieChart() {
+            const m = calculateMetrics();
+            const canvas = document.getElementById('pieChart');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const r = Math.min(w, h) / 2 - 70;
+
+            ctx.clearRect(0, 0, w, h);
+
+            let startAngle = -Math.PI / 2;
+            const slices = [];
+
+            m.assetBreakdown.forEach((a, i) => {
+                const weight = a.currentValue / m.totalCurrentValue;
+                const endAngle = startAngle + weight * 2 * Math.PI;
+                const color = colors[a.type];
+
+                // Create gradient
+                const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+                gradient.addColorStop(0, color);
+                gradient.addColorStop(1, color + '80');
+
+                ctx.fillStyle = gradient;
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 20;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fill();
+
+                if (selectedAsset === a.name) {
+                    const midAngle = (startAngle + endAngle) / 2;
+                    const offset = 20;
+                    const offsetX = Math.cos(midAngle) * offset;
+                    const offsetY = Math.sin(midAngle) * offset;
+                    ctx.shadowBlur = 30;
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.moveTo(cx + offsetX, cy + offsetY);
+                    ctx.arc(cx + offsetX, cy + offsetY, r, startAngle, endAngle);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                ctx.shadowBlur = 0;
+                slices.push({name: a.name, start: startAngle, end: endAngle});
+                startAngle = endAngle;
+            });
+
+            canvas.onclick = e => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left - cx;
+                const y = e.clientY - rect.top - cy;
+                const clickAngle = Math.atan2(y, x);
+                const dist = Math.sqrt(x*x + y*y);
+                if (dist < r) {
+                    let ca = clickAngle < 0 ? clickAngle + 2 * Math.PI : clickAngle;
+                    slices.forEach(s => {
+                        let sa = s.start < 0 ? s.start + 2 * Math.PI : s.start;
+                        let ea = s.end < 0 ? s.end + 2 * Math.PI : s.end;
+                        if (ca >= sa && ca <= ea) highlightAsset(s.name);
+                    });
+                }
+            };
+
+            let html = '';
+            m.assetBreakdown.forEach(a => {
+                const w = (a.currentValue / m.totalCurrentValue) * 100;
+                const h = selectedAsset === a.name ? 'highlighted' : '';
+                const icon = assetIcons[a.type];
+                const color = colors[a.type];
+                html += `<div class="legend-item ${h}" onclick="highlightAsset('${a.name}')">
+                    <div class="legend-icon-wrapper" style="background: ${color}25; color: ${color}">
+                        ${icon}
+                    </div>
+                    <div class="legend-text">
+                        <span class="legend-name">${a.name}</span>
+                        <span class="legend-value sensitive">${w.toFixed(1)}%</span>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('pieLegend').innerHTML = html;
+        }
+
+        function highlightAsset(name) {
+            selectedAsset = selectedAsset === name ? null : name;
+            document.querySelectorAll('.legend-item, .asset-card').forEach(el => el.classList.remove('highlighted'));
+            if (selectedAsset) {
+                document.querySelectorAll('.legend-item, .asset-card').forEach(el => {
+                    if (el.textContent.includes(selectedAsset)) {
+                        el.classList.add('highlighted');
+                    }
+                });
+            }
+            drawPieChart();
+        }
+
+        function updateAssetCards() {
+            const m = calculateMetrics();
+            let html = '';
+            m.assetBreakdown.forEach(a => {
+                const w = (a.currentValue / m.totalCurrentValue) * 100;
+                const h = selectedAsset === a.name ? 'highlighted' : '';
+                const icon = assetIcons[a.type];
+                const color = colors[a.type];
+                
+                html += `<div class="asset-card ${a.type} ${h}" onclick="highlightAsset('${a.name}')">
+                    <div class="asset-header">
+                        <div class="asset-name">${a.name}</div>
+                        <div class="asset-icon-wrapper" style="background: ${color}25; color: ${color}">
+                            ${icon}
+                        </div>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-label">Quantity</div>
+                        <div class="asset-value sensitive">${a.quantity.toFixed(2)}</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                        <div class="asset-info">
+                            <div class="asset-label">Avg Price</div>
+                            <div class="asset-value sensitive">${formatCurrency(a.invested / a.quantity)}</div>
+                        </div>
+                        <div class="asset-info">
+                            <div class="asset-label">Current</div>
+                            <div class="asset-value sensitive">${formatCurrency(a.currentPrice)}</div>
+                        </div>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-label">Invested</div>
+                        <div class="asset-value sensitive">${formatCurrency(a.invested)}</div>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-label">Current Value</div>
+                        <div class="asset-value sensitive"><strong>${formatCurrency(a.currentValue)}</strong></div>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-label">Weight</div>
+                        <div class="asset-value sensitive"><strong>${w.toFixed(1)}%</strong></div>
+                    </div>
+                    <div class="gain-box ${a.gainLoss < 0 ? 'loss' : ''}">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+                            <span style="font-size:13px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px">Gain/Loss</span>
+                            <span class="${a.gainLoss >= 0 ? 'positive' : 'negative'} sensitive" style="font-weight:900;font-size:20px">${formatCurrency(a.gainLoss)}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between">
+                            <span style="font-size:13px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px">Return</span>
+                            <span class="${a.gainLossPercent >= 0 ? 'positive' : 'negative'}" style="font-weight:900;font-size:20px">${formatPercent(a.gainLossPercent)}</span>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('assetCards').innerHTML = html;
+        }
+
+        function updatePerformanceTable() {
+            const m = calculateMetrics();
+            let html = '<thead><tr><th>Asset</th><th class="text-right">Quantity</th><th class="text-right">Avg Price</th><th class="text-right">Current</th><th class="text-right">Invested</th><th class="text-right">Value</th><th class="text-right">Gain/Loss</th><th class="text-right">Return %</th></tr></thead><tbody>';
+            m.assetBreakdown.forEach(a => {
+                html += `<tr onclick="highlightAsset('${a.name}')" style="cursor:pointer">
+                    <td><strong>${a.name}</strong></td>
+                    <td class="text-right sensitive">${a.quantity.toFixed(2)}</td>
+                    <td class="text-right sensitive">${formatCurrency(a.invested / a.quantity)}</td>
+                    <td class="text-right sensitive"><strong>${formatCurrency(a.currentPrice)}</strong></td>
+                    <td class="text-right sensitive">${formatCurrency(a.invested)}</td>
+                    <td class="text-right sensitive"><strong>${formatCurrency(a.currentValue)}</strong></td>
+                    <td class="text-right ${a.gainLoss >= 0 ? 'positive' : 'negative'} sensitive"><strong>${formatCurrency(a.gainLoss)}</strong></td>
+                    <td class="text-right ${a.gainLossPercent >= 0 ? 'positive' : 'negative'}"><strong>${formatPercent(a.gainLossPercent)}</strong></td>
+                </tr>`;
+            });
+            document.getElementById('performanceTable').innerHTML = html + '</tbody>';
+        }
+
+        function updateControls() {
+            let qHtml = '';
+            Object.keys(assets).forEach(name => {
+                qHtml += `<div class="form-group">
+                    <label>${name}</label>
+                    <input type="number" step="0.01" value="${assets[name].quantity}" 
+                           onchange="updateAssetQuantity('${name}', this.value)">
+                </div>`;
+            });
+            document.getElementById('quantityControls').innerHTML = qHtml;
+
+            let pHtml = '';
+            Object.keys(assets).forEach(name => {
+                const icon = assetIcons[assets[name].type];
+                const color = colors[assets[name].type];
+                pHtml += `<div class="form-group">
+                    <label style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:28px;height:28px;border-radius:8px;background:${color}15;color:${color};display:flex;align-items:center;justify-content:center;">
+                            ${icon}
+                        </div>
+                        ${name}
+                    </label>
+                    <input type="number" step="0.01" value="${assets[name].currentPrice}" 
+                           onchange="updateAssetPrice('${name}', this.value)" class="sensitive">
+                </div>`;
+            });
+            document.getElementById('priceControls').innerHTML = pHtml;
+
+            let iHtml = '';
+            Object.keys(assets).forEach(name => {
+                iHtml += `<div class="form-group">
+                    <label>${name}</label>
+                    <input type="number" step="0.01" value="${assets[name].invested}" 
+                           onchange="updateAssetInvested('${name}', this.value)" class="sensitive">
+                </div>`;
+            });
+            document.getElementById('investedControls').innerHTML = iHtml;
+
+            let mHtml = '<div style="display:grid;gap:18px;">';
+            Object.keys(assets).forEach(name => {
+                mHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:20px;background:var(--bg-glass);backdrop-filter:blur(20px);border-radius:14px;border:1px solid var(--border-glow)">
+                    <div>
+                        <div style="font-weight:800;font-size:18px">${name}</div>
+                        <div style="color:var(--text-secondary);font-size:14px;margin-top:6px">Type: ${assets[name].type}</div>
+                    </div>
+                    <button class="danger action-btn" onclick="deleteAsset('${name}')">Delete</button>
+                </div>`;
+            });
+            mHtml += '</div>';
+            document.getElementById('manageAssets').innerHTML = mHtml;
+
+            let tHtml = '';
+            Object.keys(assets).forEach(name => {
+                tHtml += `<option value="${name}">${name}</option>`;
+            });
+            document.getElementById('transAsset').innerHTML = tHtml;
+        }
+
+        function updateAssetQuantity(name, value) {
+            assets[name].quantity = parseFloat(value);
+            updateAll();
+        }
+
+        function updateAssetPrice(name, value) {
+            assets[name].currentPrice = parseFloat(value);
+            updateAll();
+        }
+
+        function updateAssetInvested(name, value) {
+            assets[name].invested = parseFloat(value);
+            updateAll();
+        }
+
+        function addNewAsset() {
+            const name = document.getElementById('newAssetName').value;
+            const type = document.getElementById('newAssetType').value;
+            const quantity = parseFloat(document.getElementById('newAssetQuantity').value);
+            const price = parseFloat(document.getElementById('newAssetPrice').value);
+            const invested = parseFloat(document.getElementById('newAssetInvested').value);
+
+            if (!name || !quantity || !price || !invested) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            if (assets[name]) {
+                alert('Asset already exists');
+                return;
+            }
+
+            assets[name] = { type: type, quantity: quantity, currentPrice: price, invested: invested };
+
+            document.getElementById('newAssetName').value = '';
+            document.getElementById('newAssetQuantity').value = '';
+            document.getElementById('newAssetPrice').value = '';
+            document.getElementById('newAssetInvested').value = '';
+
+            updateAll();
+            alert('Asset added successfully!');
+        }
+
+        function deleteAsset(name) {
+            if (confirm(`Are you sure you want to delete ${name}?`)) {
+                delete assets[name];
+                updateAll();
+            }
+        }
+
+        function addTransaction() {
+            const date = document.getElementById('transDate').value;
+            const asset = document.getElementById('transAsset').value;
+            const type = document.getElementById('transType').value;
+            const units = parseFloat(document.getElementById('transQuantity').value);
+            const price = parseFloat(document.getElementById('transPrice').value);
+
+            if (!date || !asset || !units || !price) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            transactions.push({ date: date, asset: asset, type: type, units: units, price: price, total: units * price });
+
+            document.getElementById('transDate').value = '';
+            document.getElementById('transQuantity').value = '';
+            document.getElementById('transPrice').value = '';
+
+            updateTransactionTable();
+            saveData();
+            alert('Transaction added!');
+        }
+
+        function updateTransactionTable() {
+            const sorted = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            let html = '<thead><tr><th>Date</th><th>Asset</th><th>Type</th><th class="text-right">Units</th><th class="text-right">Price</th><th class="text-right">Total</th></tr></thead><tbody>';
+            sorted.forEach(t => {
+                html += `<tr>
+                    <td>${new Date(t.date).toLocaleDateString()}</td>
+                    <td><strong>${t.asset}</strong></td>
+                    <td><span style="color:${t.type.includes('sell') ? 'var(--negative-red)' : 'var(--positive-green)'};font-weight:700;text-transform:uppercase">${t.type}</span></td>
+                    <td class="text-right sensitive">${t.units.toFixed(2)}</td>
+                    <td class="text-right sensitive">${formatCurrency(t.price)}</td>
+                    <td class="text-right sensitive"><strong>${formatCurrency(t.total)}</strong></td>
+                </tr>`;
+            });
+            document.getElementById('transactionTable').innerHTML = html + '</tbody>';
+        }
+
+        function updateProjections() {
+            const m = calculateMetrics();
+            const rate = parseFloat(document.getElementById('expectedReturn').value) / 100;
+            const years = parseInt(document.getElementById('projectionYears').value);
+            let html = '<thead><tr><th>Period</th><th class="text-right">Conservative</th><th class="text-right">Expected</th><th class="text-right">Optimistic</th></tr></thead><tbody>';
+            for (let y = 0; y <= years; y += 5) {
+                const cons = m.totalCurrentValue * Math.pow(1 + rate * 0.6, y);
+                const exp = m.totalCurrentValue * Math.pow(1 + rate, y);
+                const opt = m.totalCurrentValue * Math.pow(1 + rate * 1.4, y);
+                html += `<tr>
+                    <td><strong>${y === 0 ? 'Current' : y + ' Years'}</strong></td>
+                    <td class="text-right sensitive" style="color:#f59e0b"><strong>${formatCurrency(cons)}</strong></td>
+                    <td class="text-right sensitive" style="color:#3b82f6"><strong>${formatCurrency(exp)}</strong></td>
+                    <td class="text-right sensitive" style="color:var(--positive-green)"><strong>${formatCurrency(opt)}</strong></td>
+                </tr>`;
+            }
+            document.getElementById('projectionsTable').innerHTML = html + '</tbody>';
+        }
+
+        function switchTab(name) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(name).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function togglePrivacy() {
+            document.getElementById('mainContainer').classList.toggle('blurred');
+            document.getElementById('privacyToggle').classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+            localStorage.setItem('theme', current === 'light' ? 'dark' : 'light');
+        }
+
+        function saveData() {
+            const data = { assets, transactions };
+            localStorage.setItem('portfolioData', JSON.stringify(data));
+            alert('Data saved successfully!');
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('portfolioData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.assets) assets = data.assets;
+                if (data.transactions) transactions = data.transactions;
+            }
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        }
+
+        function exportToCSV() {
+            const m = calculateMetrics();
+            let csv = 'Marwan Sadek Portfolio Summary\n\n';
+            csv += 'Total Invested,' + m.totalInvested.toFixed(2) + '\n';
+            csv += 'Current Value,' + m.totalCurrentValue.toFixed(2) + '\n';
+            csv += 'Total Profit,' + m.totalGainLoss.toFixed(2) + '\n';
+            csv += 'Profit Margin,' + m.profitMargin.toFixed(2) + '%\n\n';
+            csv += 'Asset,Quantity,Current Price,Invested,Current Value,Gain/Loss,Return %\n';
+            m.assetBreakdown.forEach(a => {
+                csv += `${a.name},${a.quantity},${a.currentPrice},${a.invested},${a.currentValue},${a.gainLoss},${a.gainLossPercent}\n`;
+            });
+            
+            csv += '\n\nTransaction History\n';
+            csv += 'Date,Asset,Type,Units,Price,Total\n';
+            transactions.forEach(t => {
+                csv += `${t.date},${t.asset},${t.type},${t.units},${t.price},${t.total}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `marwan_sadek_portfolio_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function updateAll() {
+            updateMetrics();
+            drawPieChart();
+            updateAssetCards();
+            updatePerformanceTable();
+            updateControls();
+            updateProjections();
+            updateTransactionTable();
+        }
+
+        loadData();
+        setInterval(updateClock, 1000);
+        updateClock();
         updateAll();
-        console.log('✅ Dashboard loaded -',purchases.length,'transactions');
     </script>
 </body>
 </html>
